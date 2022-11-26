@@ -1,11 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  devise_for :users
   root to: 'api/status#index'
 
   namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
-
     namespace :jobs do
       mount Sidekiq::Web => '/ui'
     end
